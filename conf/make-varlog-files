@@ -1,0 +1,68 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides:          make-varlog-files
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Required-Start:
+# Required-Stop:
+# Short-Description: Create /var/log/... files on tmpfs at startup
+# Description:       Create /var/log/... files needed by system daemon
+### END INIT INFO
+ 
+#
+# main()
+#
+case "${1:-''}" in
+  'start')
+ 
+    ############################
+    # prepare /var/log subdir for ramdisk init on every boot
+ 
+    mkdir -p /var/log/apt
+    mkdir -p /var/log/chkrootkit
+    mkdir -p /var/log/clamav
+    mkdir -p /var/log/fsck
+    mkdir -p /var/log/netdata
+    mkdir -p /var/log/nginx
+    mkdir -p /var/log/ntpstats
+    mkdir -p /var/log/samba
+    
+ 
+    chown www-data.adm /var/log/nginx
+    chmod 750 /var/log/nginx
+    chown netdata.netdata /var/log/netdata
+    chown ntp.ntp /var/log/ntpstats
+    chown root.adm /var/log/
+    chown clamav.clamav /var/log/clamav
+ 
+    ############################
+    # prepare /var/log file for ramdisk init on every boot
+ 
+    touch /var/log/lastlog
+    touch /var/log/wtmp
+    touch /var/log/btmp
+    touch /var/log/nginx/access.log
+    touch /var/log/nginx/error.log
+
+    chown www-data.adm /var/log/nginx/access.log
+    chmod 640 /var/log/nginx/access.log
+    chown www-data.adm /var/log/nginx/error.log
+    chmod 640 /var/log/nginx/error.log
+    chown root.utmp /var/log/lastlog
+    chown root.utmp /var/log/wtmp
+    chown root.utmp /var/log/btmp
+   ;;
+  'stop')
+   ;;
+  'restart')
+   ;;
+  'reload'|'force-reload')
+   ;;
+  'status')
+   ;;
+  *)
+   echo "Usage: $SELF start"
+   exit 1
+   ;;
+esac

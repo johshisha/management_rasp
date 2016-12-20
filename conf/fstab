@@ -1,0 +1,15 @@
+proc            /proc           proc    defaults          0       0
+/dev/mmcblk0p1  /boot           vfat    defaults          0       2
+/dev/mmcblk0p2  /               ext4    defaults,noatime  0       1
+
+# a swapfile is not a swap partition, no line here
+#   use  dphys-swapfile swap[on|off]  for that
+
+# change tmp folder to RAM disk
+tmpfs	/tmp	 tmpfs	defaults,size=312m,noatime,mode=1777	0	0
+tmpfs	/var/tmp tmpfs	defaults,size=16m,noatime,mode=1777	0	0	
+tmpfs	/var/log tmpfs	defaults,size=128m,noatime,mode=1777	0	0
+# change size because dont use
+tmpfs	/dev	tmpfs	defaults,size=128m	0	0
+tmpfs	/dev/shm tmpfs	defaults,size=128m	0	0
+tmpfs	/run	 tmpfs	defaults,size=128m	0	0
