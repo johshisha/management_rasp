@@ -18,9 +18,14 @@ git clone https://github.com/johshisha/management_rasp_server ~/management
 sudo mv management/conf/make-varlog-files /etc/init.d/make-varlog-files
 sudo update-rc.d make-varlog-files defaults 01 10
 
+#dotfiles
+git clone https://github.com/johshisha/dotfiles
+sh dotfiles/dotfilesLink.sh
+
 #github
 git config --global user.name 'johshisha'
 git config --global user.email 'johshisha@gmail.com'
+git config --global core.editor 'vim -c "set fenc=utf-8"'
 
 #pyenv
 sudo apt-get install build-essential libncursesw5-dev libgdbm-dev libc6-dev zlib1g-dev libsqlite3-dev tk-dev libssl-dev openssl libbz2-dev libreadline-dev
